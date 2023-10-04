@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- VUE.JS -->
+    <script src="./vue.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    Teste
+    <div id="app">
+        <!-- Doubles mustaches são usados ao chaamar variáveis, assim como na sintaxe Blade do Laravel -->
+        <h1> {{ mensagem }} </h1> 
+    </div>
+
+
+    <script>
+       const vm = new Vue({
+            el: '#app', //elemento sendo chamado pelo id do objeto feito usando HTML, no caso, uma div chamada 'app'
+            data: { //data espera um objeto, por isso os mustaches
+                mensagem: 'Primeiro template controlado pelo Vue'
+            }
+       }); // vm = viewModel 
+
+       console.log(vm);
+    </script>
+</body>
+</html>
