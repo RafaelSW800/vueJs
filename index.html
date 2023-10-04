@@ -9,19 +9,29 @@
     <title>Document</title>
 </head>
 <body>
-    Teste
     <div id="app">
         <!-- Doubles mustaches são usados ao chaamar variáveis, assim como na sintaxe Blade do Laravel -->
-        <h1> {{ mensagem }} </h1> 
+        <h1> {{ mensagem }} </h1>
+        <p style="color:brown; font-size:20pt"> Resultado de 1 + 1 é igual a {{ calcular }} </p> 
+        
+        <div id="divTeste">
+            <h1> {{ mensagem2 }} </h1>
+            <p style="color: brown;"> {{ calcular2 }} </p>
+        </div>
     </div>
+
 
 
     <script>
        const vm = new Vue({
-            el: '#app', //elemento sendo chamado pelo id do objeto feito usando HTML, no caso, uma div chamada 'app'
+            el: '#app', //elemento sendo chamado pelo id do objeto HTML, no caso, uma div chamada 'app'
             data: { //data espera um objeto, por isso os mustaches
-                mensagem: 'Primeiro template controlado pelo Vue'
-            }
+                mensagem: 'Primeiro template controlado pelo Vue',
+                calcular: 1 + 1,
+                mensagem2: 'Essa mensagem é diferente da primeira',
+                calcular2: 2 + 2
+            },
+
        }); // vm = viewModel 
 
        console.log(vm);
