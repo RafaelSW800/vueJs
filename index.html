@@ -5,32 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- VUE.JS -->
     <script src="./vue.js"></script>
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <title>Document</title>
 </head>
 <body>
-    <div id="app">
-        <!-- Doubles mustaches são usados ao chaamar variáveis, assim como na sintaxe Blade do Laravel -->
-        <h1> {{ mensagem }} </h1>
-        <p style="color:brown; font-size:20pt"> Resultado de 1 + 1 é igual a {{ calcular }} </p> 
-        
-        <div id="divTeste">
-            <h1> {{ mensagem2 }} </h1>
-            <p style="color: brown;"> {{ calcular2 }} </p>
+
+    <div class="container">
+        <div id="app" class="text-center">
+            {{ funcao(1, 1) }} <!-- Ao chamar um método, devemos usar parênteses para indicar que é uma função do método -->
+            <br>
+            {{ funcao2() }}
+
+            <div class="border">
+                <h1> {{ name }} </h1>
+                <span> {{ idade }} </span>
+                <br>
+                <span> {{ genero }} </span>
+                <br>
+                <span> Soma de n1 + n2 = {{ soma() }} </span>
+                <br>
+                <span> {{ dados() }} </span>
+                <br>
+                <span> {{ arrowFunction() }} </span>
+                <br>
+                <span> {{ arrowFunctionInstanciada() }} </span>
+                <br>
+                <span> {{ testeArrow() }} </span>
+            </div>
         </div>
     </div>
-
-
 
     <script>
        const vm = new Vue({
             el: '#app', //elemento sendo chamado pelo id do objeto HTML, no caso, uma div chamada 'app'
             data: { //data espera um objeto, por isso os mustaches
-                mensagem: 'Primeiro template controlado pelo Vue',
-                calcular: 1 + 1,
-                mensagem2: 'Essa mensagem é diferente da primeira',
-                calcular2: 2 + 2
+                name: 'Rafael',
+                idade: 21,
+                genero: 'masculino',
+                n1: 10,
+                n2: 10
             },
+            methods: {
+                funcao(a, b){ //método enxuto de declarar uma função
+                    return a + b;
+                },
+                funcao2: () => { //arrow function
+                    return 'Olá mundo';
+                },
+                soma(){ // 'this.' pode ser usado para recuperar uma instância do objeto, assim como no Laravel usamos o 'this->', porém nas arrow functions o contexto léxico pode tornar este meio inválido
+                    return this.n1 + this.n2;
+                },
+                dados(){
+                    return 'O ' + this.name + ' possui ' + this.idade + ' anos e é do gênero ' + this.genero + '.'
+                },
+                arrowFunction: () => { //arrow function não retorna o objeto ao qual está instaciada, mas sim o contexto global
+                    console.log('*********', this);
+                },
+                arrowFunctionInstanciada(){
+                    let f = () => { //aqui neste caso a arrow function retorna os dados da função a qual está instanciada
+                        return console.log('&&&&&&', this);
+                    }
+                    console.log(f());
+                },
+                testeArrow(){
+                    let functionArrow = () => {
+                        return console.log('function Arrow', this);
+                    }
+                    console.log(functionArrow());
+                }
+            }
 
        }); // vm = viewModel 
 
