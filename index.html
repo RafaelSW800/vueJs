@@ -8,32 +8,28 @@
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
+    <!-- CSS -->
+    <style>
+        .verde{
+            color: greenyellow;
+            background-color: black;
+            margin-top: 10px;
+        }
+
+        .azul{
+            background-color: blue;
+            color: white;
+        }
+    </style>
+
     <title>Document</title>
 </head>
 <body>
 
-    <div class="container">
+    <div class="container mt-5">
         <div id="app" class="text-center">
-            {{ funcao(1, 1) }} <!-- Ao chamar um método, devemos usar parênteses para indicar que é uma função do método -->
-            <br>
-            {{ funcao2() }}
-
-            <div class="border">
-                <h1> {{ name }} </h1>
-                <span> {{ idade }} </span>
-                <br>
-                <span> {{ genero }} </span>
-                <br>
-                <span> Soma de n1 + n2 = {{ soma() }} </span>
-                <br>
-                <span> {{ dados() }} </span>
-                <br>
-                <span> {{ arrowFunction() }} </span>
-                <br>
-                <span> {{ arrowFunctionInstanciada() }} </span>
-                <br>
-                <span> {{ testeArrow() }} </span>
-            </div>
+            <input type="text" v-on:keyup="chamada()" :placeholder="placeholder">
+            <button v-bind:class="classe" @click="acao"> Clique </button>
         </div>
     </div>
 
@@ -41,42 +37,17 @@
        const vm = new Vue({
             el: '#app', //elemento sendo chamado pelo id do objeto HTML, no caso, uma div chamada 'app'
             data: { //data espera um objeto, por isso os mustaches
-                name: 'Rafael',
-                idade: 21,
-                genero: 'masculino',
-                n1: 10,
-                n2: 10
+                placeholder: 'Digite aqui',
+                classe: 'btn btn-primary'
             },
             methods: {
-                funcao(a, b){ //método enxuto de declarar uma função
-                    return a + b;
+                chamada(){
+                    console.log('Retorno');
                 },
-                funcao2: () => { //arrow function
-                    return 'Olá mundo';
-                },
-                soma(){ // 'this.' pode ser usado para recuperar uma instância do objeto, assim como no Laravel usamos o 'this->', porém nas arrow functions o contexto léxico pode tornar este meio inválido
-                    return this.n1 + this.n2;
-                },
-                dados(){
-                    return 'O ' + this.name + ' possui ' + this.idade + ' anos e é do gênero ' + this.genero + '.'
-                },
-                arrowFunction: () => { //arrow function não retorna o objeto ao qual está instaciada, mas sim o contexto global
-                    console.log('*********', this);
-                },
-                arrowFunctionInstanciada(){
-                    let f = () => { //aqui neste caso a arrow function retorna os dados da função a qual está instanciada
-                        return console.log('&&&&&&', this);
-                    }
-                    console.log(f());
-                },
-                testeArrow(){
-                    let functionArrow = () => {
-                        return console.log('function Arrow', this);
-                    }
-                    console.log(functionArrow());
+                acao(){
+                    alert('Deu certo :D');
                 }
             }
-
        }); // vm = viewModel 
 
        console.log(vm);
