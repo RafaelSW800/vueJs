@@ -11,8 +11,14 @@
     <!-- CSS -->
     <style>
         .verde{
-            color: greenyellow;
-            background-color: black;
+            color: rgb(0, 0, 0);
+            background-color: rgb(104, 233, 78);
+            margin-top: 10px;
+        }
+
+        .branco{
+            color: rgb(1, 1, 1);
+            background-color: rgb(249, 249, 249);
             margin-top: 10px;
         }
 
@@ -20,32 +26,57 @@
             background-color: blue;
             color: white;
         }
+        
+
+        .vermelho{
+            background-color: rgb(250, 0, 0);
+            color: white;
+        }
+
+        .borda{
+            border: 1px solid red;
+        }
+        .div-principal{
+            width: 200px;
+            height: 200px;
+        }
+        .div-comum{
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+        }
     </style>
 
     <title>Document</title>
 </head>
 <body>
-
-    <div class="container mt-5">
-        <div id="app" class="text-center">
-            <input type="text" v-on:keyup="chamada()" :placeholder="placeholder">
-            <button v-bind:class="classe" @click="acao"> Clique </button>
+    <div id="app" class="mt-3 ms-3">
+        <div class="borda div-principal" :class="cor">
+            Eixo X do mouse: {{ eixoX }} <br>
+            Eixo Y do mouse: {{ eixoY }} 
         </div>
+        <hr>
+        <div @click="mudarCor('verde')" class="borda div-comum"></div>
+        <div @mouseover="mudarCor('vermelho')" @mouseout="mudarCor('branco')" class="borda div-comum"></div>
+        <div @mousemove="coordenadas($event)" class="borda div-comum"></div>
     </div>
 
     <script>
        const vm = new Vue({
             el: '#app', //elemento sendo chamado pelo id do objeto HTML, no caso, uma div chamada 'app'
             data: { //data espera um objeto, por isso os mustaches
-                placeholder: 'Digite aqui',
-                classe: 'btn btn-primary'
+                cor: 'branco',
+                eixoX: 0,
+                eixoY: 0
             },
             methods: {
-                chamada(){
-                    console.log('Retorno');
+                mudarCor(c){
+                    this.cor = c;
                 },
-                acao(){
-                    alert('Deu certo :D');
+                coordenadas(e){
+                    this.eixoX = e.clientX;
+                    this.eixoY = e.clientY;
+                    console.log(e);
                 }
             }
        }); // vm = viewModel 
